@@ -24,41 +24,39 @@ class PredictPipeline:
             raise CustomException(e,sys)
 
 
-
 class CustomData:
     def __init__(  self,
-        gender: str,
-        race_ethnicity: str,
-        parental_level_of_education,
-        lunch: str,
-        test_preparation_course: str,
-        reading_score: int,
-        writing_score: int):
+        Fuel_Type: str,
+        Seller_Type: str,
+        Transmission: str,
+        age,
+        Present_Price,
+        Kms_Driven,Owner):
 
-        self.gender = gender
+        self.Fuel_Type = Fuel_Type
 
-        self.race_ethnicity = race_ethnicity
+        self.Seller_Type = Seller_Type
 
-        self.parental_level_of_education = parental_level_of_education
+        self.Transmission = Transmission
 
-        self.lunch = lunch
+        self.age = age
 
-        self.test_preparation_course = test_preparation_course
+        self.Present_Price = Present_Price
 
-        self.reading_score = reading_score
+        self.Kms_Driven = Kms_Driven
 
-        self.writing_score = writing_score
+        self.Owner = Owner
 
     def get_data_as_data_frame(self):
         try:
             custom_data_input_dict = {
-                "gender": [self.gender],
-                "race_ethnicity": [self.race_ethnicity],
-                "parental_level_of_education": [self.parental_level_of_education],
-                "lunch": [self.lunch],
-                "test_preparation_course": [self.test_preparation_course],
-                "reading_score": [self.reading_score],
-                "writing_score": [self.writing_score],
+                "Fuel_Type": [self.Fuel_Type],
+                "Seller_Type": [self.Seller_Type],
+                "Transmission": [self.Transmission],
+                "age": [self.age],
+                "Present_Price": [self.Present_Price],
+                "Kms_Driven": [self.Kms_Driven],
+                "Owner": [self.Owner],
             }
 
             return pd.DataFrame(custom_data_input_dict)

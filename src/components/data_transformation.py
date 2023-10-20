@@ -13,10 +13,14 @@ from src.logger import logging
 import os
 
 from src.utils import save_object
+from sklearn.base import BaseEstimator, TransformerMixin
 
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path=os.path.join('artifacts',"preprocessor.pkl")
+
+
+
 
 class DataTransformation:
     def __init__(self):
@@ -24,17 +28,15 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         '''
-        This function si responsible for data trnasformation
+        This function is responsible for data trnasformation
         
         '''
         try:
-            numerical_columns = ["writing_score", "reading_score"]
+            numerical_columns = ["age","Present_Price","Kms_Driven","Owner"]
             categorical_columns = [
-                "gender",
-                "race_ethnicity",
-                "parental_level_of_education",
-                "lunch",
-                "test_preparation_course",
+                "Fuel_Type",
+                "Seller_Type",
+                "Transmission",
             ]
 
             num_pipeline= Pipeline(
@@ -58,8 +60,7 @@ class DataTransformation:
             logging.info(f"Categorical columns: {categorical_columns}")
             logging.info(f"Numerical columns: {numerical_columns}")
 
-            preprocessor=ColumnTransformer(
-                [
+            preprocessor=ColumnTransformer([
                 ("num_pipeline",num_pipeline,numerical_columns),
                 ("cat_pipelines",cat_pipeline,categorical_columns)
 
@@ -78,6 +79,10 @@ class DataTransformation:
         try:
             train_df=pd.read_csv(train_path)
             test_df=pd.read_csv(test_path)
+            train_df['age'] = 2020- train_df['Year']
+            train_df.drop(columns = ["Year","Car_Name"], inplace = True)
+            test_df['age'] = 2020- test_df['Year']
+            test_df.drop(columns = ["Year","Car_Name"], inplace = True)
 
             logging.info("Read train and test data completed")
 
@@ -85,8 +90,7 @@ class DataTransformation:
 
             preprocessing_obj=self.get_data_transformer_object()
 
-            target_column_name="math_score"
-            numerical_columns = ["writing_score", "reading_score"]
+            target_column_name="Selling_Price"
 
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]

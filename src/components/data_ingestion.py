@@ -1,4 +1,5 @@
 import sys 
+sys.path.insert(0, r"C:\Users\Salma El Ghourbal\Documents\projects\carprediction\src")
 import os
 from src.logger import logging
 from src.exceptions import CustomException
@@ -7,7 +8,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
-from src.components.data_transformation import DataTransformationConfig
+# from src.components.data_transformation import DataTransformationConfig
 from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
 
 @dataclass
@@ -22,7 +23,7 @@ class DataIngestion :
     def initiate_data_ingestion(self):
         logging.info('Entering the data ingestion component')
         try : 
-            df = pd.read_csv("notebook\data\stud.csv") 
+            df = pd.read_csv("notebook\data\car_data.csv") 
 
             logging.info("Read the dataset with pandas")
 

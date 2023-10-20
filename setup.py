@@ -14,7 +14,7 @@ def get_requirements(file_path:str)->List[str]:
     return(requirements)
 
 setup(
-name = "testproject",
+name = "newproject",
 version = "0.0.1",
 author = "SalmaELGH",
 author_email ="salma011998@gmail.com",
